@@ -7,7 +7,9 @@ class APIClient:
     Simple wrapper around your Node backend APIs.
     """
 
-    def __init__(self, base_url: str = "http://localhost:4000/api"):
+    def __init__(self, base_url: str | None = None):
+        if base_url is None:
+            base_url = os.environ.get("TAXMATE_API_BASE_URL", "http://localhost:4000/api")
         self.base_url = base_url.rstrip("/")
 
     def _headers(self, access_token: Optional[str] = None) -> Dict[str, str]:
